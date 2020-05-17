@@ -9,7 +9,7 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Interface
 {
     public interface IRegister
     {
-        void CreateUser(UserModel user);
+        UserVm CreateUser(UserVm user);
         string HashPassword(string password);
     }
 }

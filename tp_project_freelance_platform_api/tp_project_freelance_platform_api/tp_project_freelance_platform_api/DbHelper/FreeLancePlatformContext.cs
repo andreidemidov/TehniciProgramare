@@ -7,10 +7,10 @@ using TP_PROJECT_FreeLancePlatform_Api.Model;
 
 namespace TP_PROJECT_FreeLancePlatform_Api.Helpers
 {
-    public class UserModelContext: DbContext
+    public class FreeLancePlatformContext: DbContext
     {
-          public UserModelContext(DbContextOptions<UserModelContext> options) : base(options) { }
-        public DbSet<UserModel> UserModels { get; set; }
+          public FreeLancePlatformContext(DbContextOptions<FreeLancePlatformContext> options) : base(options) { }
+          public DbSet<UserModel> UserModels { get; set; }
 
     }
 }

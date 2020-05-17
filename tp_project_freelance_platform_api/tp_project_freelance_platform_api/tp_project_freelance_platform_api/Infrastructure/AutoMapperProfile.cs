@@ -13,6 +13,7 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Helpers
         public AutoMapperProfile()
         {
             CreateMap<UserVm, UserModel>();
+            CreateMap<UserModel, UserVm>();
         }
     }
 }
