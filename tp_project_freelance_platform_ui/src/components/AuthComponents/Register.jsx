@@ -31,9 +31,11 @@ class Register extends React.Component {
             email: null,
             firstName: null,
             lastName: null,
-            password: null, 
+            password: null,
             confirmPassword: null,
             role: null,
+            showMessage: false,
+            message: "",
             formErrors: {
                 email: "",
                 firstName: "",
@@ -59,14 +61,14 @@ class Register extends React.Component {
                 break;
 
             case "firstName":
-                formErrors.firstName = 
+                formErrors.firstName =
                     value.length < 6 ? "Minimum 6 characaters required ❌" : ""
                 break;
 
-                case "lastName":
-                    formErrors.lastName = 
-                        value.length < 6 ? "Minimum 6 characaters required ❌" : ""
-                    break;
+            case "lastName":
+                formErrors.lastName =
+                    value.length < 6 ? "Minimum 6 characaters required ❌" : ""
+                break;
 
             case "confirmPassword":
                 formErrors.confirmPassword =
@@ -96,7 +98,6 @@ class Register extends React.Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        debugger;
         if (formValid(this.state)) {
             let user = {
                 emailAddress: this.state.email,
@@ -106,15 +107,19 @@ class Register extends React.Component {
                 role: this.state.role,
             };
 
-            await userService.Register(user);
-        } else {
-            console.log(formValid(this.state));
-            console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+            await userService.Register(user).then(result => {
+                if (result.message !== "") {
+                    this.setState({ message: result.message, showMessage: true });
+                } else {
+                    console.log(formValid(this.state));
+                    console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+                }
+            });
         }
-    };
+    }
 
     render() {
-        const { formErrors } = this.state;
+        const { formErrors, showMessage, message } = this.state;
         return (
             <div className="bg">
                 <div className="container">
@@ -238,6 +243,7 @@ class Register extends React.Component {
                                 <Button type="submit" color="primary"><em>Sing Up</em></Button>{' '}
                                 <hr />
                                 <h6><em style={{ color: "white" }}>Back to <Link to='/Login'>Sing in</Link></em></h6>
+                                {showMessage && <p style={{ color: "white" }}>{message}</p>}
                             </form>
                         </div>
                     </div>

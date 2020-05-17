@@ -7,6 +7,7 @@ using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TP_PROJECT_FreeLancePlatform_Api.Helpers;
 using TP_PROJECT_FreeLancePlatform_Api.Interface;
 using TP_PROJECT_FreeLancePlatform_Api.Model;
 using TP_PROJECT_FreeLancePlatform_Api.ModelVm;
@@ -29,18 +30,24 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register([FromBody]UserVm userVm)
+        public object Register([FromBody]UserVm userVm)
         {
-            UserModel userModel = _mapper.Map<UserModel>(userVm);
             try
             {
-                _registerService.CreateUser(userModel);
-                return Ok();
+                var userConfirmation = _registerService.CreateUser(userVm);
+
+                if (!string.IsNullOrEmpty(userConfirmation.EmailAddress))
+                {
+                    return Ok(new { message = "User was succesfully recorded!" });
+                }
+                
             }
-            catch(ApplicationException ex)
+            catch(AppException ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return new { message = ex.Message };
             }
+
+            return new { message = "Something went wrong please try again" };
         }
     }
 }

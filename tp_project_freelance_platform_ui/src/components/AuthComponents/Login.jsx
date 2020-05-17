@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { userService } from '../../services/UserService';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import "./Login.css";
 
 const emailRegex = RegExp(
@@ -31,7 +31,8 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      authenticated: false,
+      showMessage: false,
+      message: "",
       formErrors: {
         email: "",
         password: "",
@@ -70,12 +71,13 @@ class Login extends Component {
     if (formValid(this.state)) {
       var dataAuth;
       await userService.Login(this.state.email, this.state.password).then((result) => {
-        this.setState({ authenticated: true });
-        dataAuth = result.token;
-        localStorage.setItem('login', JSON.stringify({
-          login: true,
-          token: result.token
-        }))
+        debugger;
+        if(result.token !== undefined){
+          dataAuth = result.token;  
+          localStorage.setItem('login', result.token);
+        }else if(result.message !== ""){
+            this.setState({showMessage: true, message: result.message});
+        }       
       });
       debugger;
       if (dataAuth) {
@@ -89,7 +91,7 @@ class Login extends Component {
 
   render() {
     const { formErrors } = this.state;
-    const {authenticated} = this.state;
+    const {showMessage, message} = this.state;
     return (
      <div className="background">
         <div className="container">
@@ -148,11 +150,11 @@ class Login extends Component {
                 </div>
                 <Button color="primary" type="submit">Login</Button>{' '}
                 <p>Not registered? <Link to='/Register'>Create Account</Link></p>
+                    {showMessage && <p style = {{color: "red"}}>{message}</p>}
               </form>
             </div>
           </div>
         </div>
-        <Route authenticated={authenticated}></Route>
       </div>
     );
   }

@@ -8,7 +8,7 @@ using TP_PROJECT_FreeLancePlatform_Api.Helpers;
 
 namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
 {
-    [DbContext(typeof(UserModelContext))]
+    [DbContext(typeof(FreeLancePlatformContext))]
     [Migration("20200424160639_Role")]
     partial class Role
     {

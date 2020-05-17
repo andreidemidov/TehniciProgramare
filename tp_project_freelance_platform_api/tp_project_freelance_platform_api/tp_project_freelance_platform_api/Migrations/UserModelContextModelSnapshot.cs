@@ -7,7 +7,7 @@ using TP_PROJECT_FreeLancePlatform_Api.Helpers;
 
 namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
 {
-    [DbContext(typeof(UserModelContext))]
+    [DbContext(typeof(FreeLancePlatformContext))]
     partial class UserModelContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

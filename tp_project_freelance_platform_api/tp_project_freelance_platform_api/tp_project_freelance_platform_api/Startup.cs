@@ -38,7 +38,7 @@ namespace TestAuthorize
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
 
-            services.AddDbContext<UserModelContext>(options =>
+            services.AddDbContext<FreeLancePlatformContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DevConnection"))
            );
 

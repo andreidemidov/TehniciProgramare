@@ -18,9 +18,9 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Service
     public class AuthorizationService: IAuthService
     {
         private readonly IConfiguration _config;
-        private readonly UserModelContext _context;
+        private readonly FreeLancePlatformContext _context;
 
-        public AuthorizationService(IConfiguration config, UserModelContext context)
+        public AuthorizationService(IConfiguration config, FreeLancePlatformContext context)
         {
             _config = config;
             _context = context;
@@ -58,7 +58,7 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Service
                 issuer: _config["Jwt: Issuer"],
                 audience: _config["Jwt: Issuer"],
                 claims,
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.Now.AddMinutes(120),
                 signingCredentials: credentials
             );
 

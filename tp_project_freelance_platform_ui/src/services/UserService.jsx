@@ -1,8 +1,9 @@
-import { LOGIN_URL, REGISTER_URL } from "../constants";
+import { LOGIN_URL, REGISTER_URL, GET_AUTH } from "../constants";
 
 export const userService = {
     Login,
-    Register
+    Register,
+    isAuthenticated
 };
 
 // function Login(email, pass) {
@@ -42,22 +43,41 @@ async function Login(email, pass) {
 
 async function Register(user) {
     debugger;
-    await fetch(REGISTER_URL, {
+   let response = await fetch(REGISTER_URL, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(user),
-    }).then(response => {
-        response.json().then((result) => {
-            console.warn("result", result);
-        }).catch(function(error) {
-            console.log(error);
-        });
-    })
+    });
+    return await response.json();
+    
+}
 
-    // let response = await fetch(REGISTER_URL, {
-    //     method: "POST",
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(user),
+async function isAuthenticated() {
+    const jwttoken = localStorage.getItem('login');
+    const bearer = 'Bearer ' + jwttoken;
+    let response = await fetch(GET_AUTH, {
+        method: "GET",
+        headers: {
+            'Authorization': bearer,
+        },
+    });
+
+    return await response.json();
+    // }).then(
+    //     response => {
+    //         response.json()
+    //             .then((res) => {
+    //                 if (result.message === "authorized") {
+    //                     return true;
+    //                 }
+    //                 if (result.message === "unauthorized") {
+    //                     localStorage.removeItem('login');
+    //                      return false;
+    //                 }
+    //             })
+    //     }
+    // ).catch((err) => {
+    //     console.log(err)
     // });
-    // return await response.json();
+    // return await authenticated;
 }

@@ -9,7 +9,7 @@ using TP_PROJECT_FreeLancePlatform_Api.Model;
 
 namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
 {
-    [DbContext(typeof(UserModelContext))]
+    [DbContext(typeof(FreeLancePlatformContext))]
     [Migration("20200410171806_InitialCreate")]
     partial class InitialCreate
     {

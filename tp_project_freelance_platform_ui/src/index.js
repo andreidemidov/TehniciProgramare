@@ -7,6 +7,8 @@ import Login from './components/AuthComponents/Login';
 import Register from './components/AuthComponents/Register';
 import { PrivateRoute } from './components/helpers/PrivateRoute';
 import HomeEmployee from './components/Home/HomeEmployee';
+import ProfileEdit from './components/Account/ProfileEdit';
+import ProfileDetails from './components/Account/ProfileDetails';
 
 const routing = (
     <Router>
@@ -14,7 +16,9 @@ const routing = (
             <Route path = "/" component = {App}></Route>
             <Route path = "/Login" component = {Login}></Route>          
             <Route path = "/Register" component = {Register}></Route>
-            <PrivateRoute path="/HomeEmployee" component = {HomeEmployee}></PrivateRoute>
+            <Route path="/HomeEmployee" component = {HomeEmployee}></Route>
+            <Route path ="/ProfileDetails" component = {ProfileDetails}></Route>
+            <Route path ="/ProfileEdit" component = {ProfileEdit}></Route>
         </div>
     </Router>
 )

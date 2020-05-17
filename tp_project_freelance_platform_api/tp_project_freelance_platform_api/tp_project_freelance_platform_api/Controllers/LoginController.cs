@@ -26,7 +26,7 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody]UserVm userVm)
+        public object Login([FromBody]UserVm userVm)
         {
             IActionResult response = Unauthorized();
             try
@@ -39,7 +39,7 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Controllers
                 if (user != null)
                 {
                     var tokenResponse = _authService.GenerateJSONWebToken(user);
-                    response = Ok(new { token = tokenResponse, status = "success" });
+                    return response = Ok(new { token = tokenResponse, status = "success" });
                 }
             }
             catch (ApplicationException ex)
@@ -48,7 +48,7 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Controllers
             }
 
 
-            return response;
+            return new { message = "Email address or password are not valid!!!" };
         }
 
 
@@ -65,6 +65,19 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Controllers
             };
 
             return user;
+        }
+
+        [HttpGet("GetAuth")]
+        [Authorize]
+        public object GetAuth()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                return Ok(new { message = "authorized" });
+            }
+
+            return new { message = "unauthorized"};
         }
     }
 }
