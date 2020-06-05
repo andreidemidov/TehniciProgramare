@@ -71,17 +71,25 @@ class Login extends Component {
     if (formValid(this.state)) {
       var dataAuth;
       await userService.Login(this.state.email, this.state.password).then((result) => {
-        debugger;
         if(result.token !== undefined){
           dataAuth = result.token;  
-          localStorage.setItem('login', result.token);
+          localStorage.setItem('JWT', result.token);
         }else if(result.message !== ""){
             this.setState({showMessage: true, message: result.message});
         }       
       });
       debugger;
       if (dataAuth) {
-        this.props.history.push('/HomeEmployee');
+        await userService.GetUser().then((result) => {
+          debugger;
+          console.log(result);
+          if(result.role === "Employee"){
+            this.props.history.push('/HomeEmployee');
+          }else{
+            this.props.history.push('/HomeEmployeer');
+          }
+        })
+        
       }
     } else {
       console.error("error plm");

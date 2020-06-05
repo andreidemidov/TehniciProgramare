@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import {Link} from "react-router-dom";
 
 export default class NavBar extends Component {
     constructor(props) {
         super(props);
-    }
-
-    state = {
-        isActive: false
+        this.state = {
+            isActive: false
+        }
     }
 
     handleShow = () => {
@@ -17,10 +16,11 @@ export default class NavBar extends Component {
         });
     }
 
-    RouteToProfle(){
-        this.props.history.push('/ProfileDetails');
+    logOut = () => {
+        localStorage.clear();
+        window.location.href = '/Login';
     }
-
+    
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ width: "100%" }}>
@@ -39,7 +39,7 @@ export default class NavBar extends Component {
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
                         <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
-                    <i class="fa fa-envelope-o" style={{fontSize: "25px", marginLeft: "10px", cursor: "pointer"}}></i>
+                    <i class="fa fa-envelope-o" style={{ fontSize: "25px", marginLeft: "10px", cursor: "pointer" }}></i>
                     <i className="fa fa-user-circle" style={{
                         fontSize: "25px", marginLeft: "10px", cursor: "pointer",
                         position: "relative",
@@ -49,12 +49,12 @@ export default class NavBar extends Component {
                             style={{
 
                             }}>
-                            <a class="dropdown-item" onClick = {this.RouteToProfle}>Profile details</a>
-                            <a class="dropdown-item" >Edit profile</a>
+                            <Link to = "/ProfileDetails"><a class = "dropdown-item">{this.props.profile} Details</a></Link>
+
                         </div> : null}
                     </i>
-                    
-                    <i className="fa fa-sign-out" style={{fontSize: "25px", marginLeft: "10px", cursor: "pointer"}} ></i>
+
+                    <i className="fa fa-sign-out" style={{ fontSize: "25px", marginLeft: "10px", cursor: "pointer" }} onClick ={() => this.logOut()}></i>
                 </div>
             </nav>
 

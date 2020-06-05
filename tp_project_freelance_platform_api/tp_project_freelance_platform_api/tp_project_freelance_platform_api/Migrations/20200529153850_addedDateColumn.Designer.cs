@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TP_PROJECT_FreeLancePlatform_Api.Helpers;
 
 namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
 {
     [DbContext(typeof(FreeLancePlatformContext))]
-    partial class UserModelContextModelSnapshot : ModelSnapshot
+    [Migration("20200529153850_addedDateColumn")]
+    partial class addedDateColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,18 +66,11 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("CompanyName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("Department")
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("EmployeerId")
-                        .HasColumnType("int");
 
                     b.Property<string>("ForeignLanguage")
                         .HasColumnType("nvarchar(100)");
@@ -99,9 +94,12 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
                     b.Property<string>("Study")
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("UserModelId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeerId");
+                    b.HasIndex("UserModelId");
 
                     b.ToTable("Job");
                 });
@@ -110,7 +108,7 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
                 {
                     b.HasOne("TP_PROJECT_FreeLancePlatform_Api.Model.UserModel", "User")
                         .WithMany("Jobs")
-                        .HasForeignKey("EmployeerId")
+                        .HasForeignKey("UserModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TP_PROJECT_FreeLancePlatform_Api.Helpers;
 
 namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
 {
     [DbContext(typeof(FreeLancePlatformContext))]
-    partial class UserModelContextModelSnapshot : ModelSnapshot
+    [Migration("20200531140350_AddedColumnForCompany")]
+    partial class AddedColumnForCompany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

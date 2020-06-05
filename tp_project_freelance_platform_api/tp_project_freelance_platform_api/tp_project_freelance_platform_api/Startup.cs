@@ -14,6 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using tp_project_freelance_platform_api.Entities;
+using tp_project_freelance_platform_api.Repository;
+using tp_project_freelance_platform_api.Repository.Interfaces;
 using TP_PROJECT_FreeLancePlatform_Api.Helpers;
 using TP_PROJECT_FreeLancePlatform_Api.Interface;
 using TP_PROJECT_FreeLancePlatform_Api.Model;
@@ -68,7 +71,9 @@ namespace TestAuthorize
 
             services.AddScoped<IAuthService, AuthorizationService>();
             services.AddScoped<IRegister, RegisterService>();
-            
+            services.AddScoped<IJobRepository, JobRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

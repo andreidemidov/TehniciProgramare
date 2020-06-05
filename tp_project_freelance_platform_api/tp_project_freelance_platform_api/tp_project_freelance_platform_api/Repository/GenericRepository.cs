@@ -49,5 +49,7 @@ namespace tp_project_freelance_platform_api.Repository
             table.Attach(obj);
             _context.Entry(obj).State = EntityState.Modified;
         }
+
+        
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TP_PROJECT_FreeLancePlatform_Api.Helpers;
 
 namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
 {
     [DbContext(typeof(FreeLancePlatformContext))]
-    partial class UserModelContextModelSnapshot : ModelSnapshot
+    [Migration("20200529182611_changeColumnForeignKey")]
+    partial class changeColumnForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,10 +64,6 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("CompanyName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Department")

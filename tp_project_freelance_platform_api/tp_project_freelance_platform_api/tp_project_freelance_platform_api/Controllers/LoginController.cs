@@ -52,32 +52,28 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Controllers
         }
 
 
-        [HttpPost("GetUser")]
+        [HttpGet("GetUser")]
         [Authorize]
         public UserModel GetUser()
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            IList<Claim> claim = identity.Claims.ToList();
+            IList<Claim> claim = GetClaim();
             var user = new UserModel
             {
                 EmailAddress = claim[0].Value,
-                Role = claim[1].Value
+                Role = claim[1].Value,
+                FirstName = claim[2].Value,
+                LastName = claim[3].Value,
+                Id = Convert.ToInt32(claim[4].Value)
             };
 
             return user;
         }
 
-        [HttpGet("GetAuth")]
-        [Authorize]
-        public object GetAuth()
+        private IList<Claim> GetClaim()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if (identity != null)
-            {
-                return Ok(new { message = "authorized" });
-            }
-
-            return new { message = "unauthorized"};
+            IList<Claim> claim = identity.Claims.ToList();
+            return claim;
         }
     }
 }

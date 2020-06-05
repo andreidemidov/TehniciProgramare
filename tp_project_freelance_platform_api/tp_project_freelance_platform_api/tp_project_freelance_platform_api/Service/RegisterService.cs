@@ -18,13 +18,14 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Service
     {
         private readonly FreeLancePlatformContext _context;
         private readonly IMapper _mapper;
-        private readonly UserRepository _userRepository;
+        
 
-        public RegisterService(FreeLancePlatformContext context, IMapper mapper, UserRepository userRepository)
+        public RegisterService(FreeLancePlatformContext context, IMapper mapper
+            )
         {
             _context = context;
             _mapper = mapper;
-            _userRepository = userRepository;
+           
         }
 
         public UserVm CreateUser(UserVm userVm)
@@ -40,7 +41,9 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Service
             var paswordHash = HashPassword(user.Password);
             user.Password = paswordHash;
 
-            _userRepository.CreateUser(user);
+            //_userRepository.CreateUser(user);
+            _context.Add(user);
+            _context.SaveChanges();
 
             var userConfirmation = _context.UserModels.SingleOrDefault(x => x.EmailAddress == user.EmailAddress);
             var userReturned = new UserVm();

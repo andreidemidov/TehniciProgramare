@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using tp_project_freelance_platform_api.Entities;
 
 namespace TP_PROJECT_FreeLancePlatform_Api.Model
 {
@@ -25,8 +26,8 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Model
         [Column(TypeName = "nvarchar(100)")]
         public string EmailAddress { get; set; }
         [Required]
-        [Column(TypeName = "nvarchar(9)")]
+        [Column(TypeName = "nvarchar(9)")] 
         public string Role { get; set; }
-
+        public ICollection<Job> Jobs { get; set; }
     }
 }

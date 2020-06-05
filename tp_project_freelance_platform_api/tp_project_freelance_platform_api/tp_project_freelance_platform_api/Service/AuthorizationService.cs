@@ -1,4 +1,5 @@
 ﻿using CryptoHelper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -42,6 +43,11 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Service
             return user;
         }
 
+        public UserModel AuthorizeUser(int id)
+        {
+            return _context.UserModels.SingleOrDefault(x => x.Id == id);
+        }
+
         public string GenerateJSONWebToken(UserModel userInformation)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:key"]));
@@ -51,6 +57,9 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Service
             {
                 new Claim(JwtRegisteredClaimNames.Email, userInformation.EmailAddress),
                 new Claim(JwtRegisteredClaimNames.Sub, userInformation.Role),
+                new Claim(JwtRegisteredClaimNames.FamilyName, userInformation.FirstName),
+                new Claim(JwtRegisteredClaimNames.FamilyName, userInformation.LastName),
+                new Claim(JwtRegisteredClaimNames.NameId, userInformation.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -64,6 +73,13 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Service
 
             var encodeToken = new JwtSecurityTokenHandler().WriteToken(token);
             return encodeToken;
+        }
+
+        public IList<Claim> GetClaim(ClaimsIdentity identity)
+        {
+            //var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claim = identity.Claims.ToList();
+            return claim;
         }
 
         public bool VerifyPassword(string hashedPassword, string password)
