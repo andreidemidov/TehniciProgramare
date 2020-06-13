@@ -29,5 +29,6 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Model
         [Column(TypeName = "nvarchar(9)")] 
         public string Role { get; set; }
         public ICollection<Job> Jobs { get; set; }
+        public UserDetail UserDetail { get; set; }
     }
 }

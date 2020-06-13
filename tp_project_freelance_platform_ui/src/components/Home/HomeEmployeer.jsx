@@ -4,6 +4,7 @@ import NavBar from './NavBar';
 import '../Home/Employeer.css';
 import manAvatar from '../../man.png';
 import womanAvatar from '../../woman.png';
+import Avatar from 'react-avatar';
 import './Modal.css';
 import { JobService } from '../../services/JobService';
 import { toast } from 'react-toastify';
@@ -44,7 +45,7 @@ export default class HomeEmployeer extends Component {
             }
 
         });
-        
+
     }
 
     openCloseModal = () => {
@@ -114,7 +115,7 @@ export default class HomeEmployeer extends Component {
         });
 
         jobUpdated.map(job => {
-            if(job.isShowingUpdate === true){
+            if (job.isShowingUpdate === true) {
                 this.setState({
                     name: job.name,
                     description: job.description,
@@ -130,7 +131,7 @@ export default class HomeEmployeer extends Component {
                 });
             }
         });
-        
+
     }
 
     closeModalHandler = (id) => {
@@ -247,10 +248,10 @@ export default class HomeEmployeer extends Component {
                                     <h2 className="card-text" style={{ display: "inline-block", color: "#2A333D", font: "sans-serif", fontSize: "14px" }}>Applicants: </h2>
                                     <table style={{ display: "inline-block", marginLeft: "2%" }}>
                                         <td>
-                                            <img src={manAvatar} alt="Avatar" class="avatar"></img>
+                                            <Avatar name="Wim Mostmans" size="50" round="40px" />
                                         </td>
                                         <td>
-                                            <img src={womanAvatar} alt="Avatar" class="avatar"></img>
+                                            <Avatar name="Wim Mostmans" size="50" round="40px" />
                                         </td>
                                     </table>
                                     <div style={{ marginLeft: "80%" }}>
@@ -343,12 +344,12 @@ export default class HomeEmployeer extends Component {
                                                                         <input type="text" name="salary" placeholder="Update salary" onChange={this.handleChange} />
                                                                     </td>
                                                                     <i className="fa fa-edit" style={{ fontSize: "25px", marginTop: "14px", cursor: "pointer" }} onClick={() => this.updateByField(job.id)}></i>
-                                                                    
+
                                                                 </tr>
-                                                                
+
                                                             </tbody>
                                                         </table>
-                                                        <button className = "btn btn-primary" type = "button" style = {{marginLeft: "45%"}} onClick={() => this.updateByField(job.id)}>Update All</button>
+                                                        <button className="btn btn-primary" type="button" style={{ marginLeft: "45%" }} onClick={() => this.updateByField(job.id)}>Update All</button>
                                                     </div>
                                                 </div>
                                             )
