@@ -31,7 +31,7 @@ class HomeEmployee extends Component {
             }
 
         });
-        console.log(this.state.jobs);;
+        console.log(this.state.jobs);
     }
 
     openModalHandler(id) {
@@ -77,9 +77,9 @@ class HomeEmployee extends Component {
     }
 
     render() {
-        return (
+        return ( 
             <div>
-                <NavBar profile={this.state.user.role}></NavBar>
+                <NavBar profile={this.state.user}></NavBar>
                 <table className="table" style={{ marginLeft: "5%" }}>
                     <tbody>
                         <tr style={{

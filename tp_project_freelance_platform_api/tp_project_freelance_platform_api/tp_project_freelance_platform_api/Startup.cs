@@ -101,6 +101,7 @@ namespace TestAuthorize
                 endpoints.MapControllers();
             });
 
+            app.UseStaticFiles();
         }
     }
 }

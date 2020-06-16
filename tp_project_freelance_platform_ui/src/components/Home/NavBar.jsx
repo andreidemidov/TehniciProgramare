@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class NavBar extends Component {
     constructor(props) {
@@ -20,7 +20,7 @@ export default class NavBar extends Component {
         localStorage.clear();
         window.location.href = '/Login';
     }
-    
+
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ width: "100%" }}>
@@ -49,12 +49,15 @@ export default class NavBar extends Component {
                             style={{
 
                             }}>
-                            <Link to = "/ProfileDetails"><a class = "dropdown-item">{this.props.profile} Details</a></Link>
+                            <Link to={{
+                                pathname: "/ProfileDetails",
+                                state: this.props.profile
+                            }}><a class="dropdown-item">{this.props.profile.role} Details</a></Link>
 
                         </div> : null}
                     </i>
 
-                    <i className="fa fa-sign-out" style={{ fontSize: "25px", marginLeft: "10px", cursor: "pointer" }} onClick ={() => this.logOut()}></i>
+                    <i className="fa fa-sign-out" style={{ fontSize: "25px", marginLeft: "10px", cursor: "pointer" }} onClick={() => this.logOut()}></i>
                 </div>
             </nav>
 

@@ -4,3 +4,4 @@ export const REGISTER_URL = `${URL}/Register`;
 export const GET_AUTH = `${URL}/Login/GetAuth`;
 export const GET_USER = `${URL}/Login/GetUser`;
 export const JOB = `${URL}/Jobs`;
+export const EMPLOYEE = `${URL}/Employee`;

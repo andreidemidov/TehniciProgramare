@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import NavBar from '../Home/NavBar';
 import "./Profile.css";
 import '../../components/Home/Modal.css';
+import { EmployeeService } from '../../services/EmployeeService';
 import "react-image-crop/dist/ReactCrop.css";
+import { toast } from 'react-toastify';
+
+toast.configure();
 
 export default class ProfileDetails extends Component {
     constructor(props) {
@@ -15,7 +19,6 @@ export default class ProfileDetails extends Component {
             personalDescription: "",
             selectedFile: "",
             selectedFileName: "",
-            avatarImage: "",
             openModal: false
         }
     }
@@ -43,11 +46,33 @@ export default class ProfileDetails extends Component {
             this.setState({ [name]: value });
 
         }
-        console.log(this.state)
+
+    }
+
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        debugger;
+        const employee = {
+            userModelId: this.props.location.state.id,
+            position: this.state.position,
+            county: this.state.county,
+            city: this.state.city,
+            phone: this.state.phone,
+            personalDescription: this.state.personalDescription,
+            selectedFile: this.state.selectedFile,
+            selectedFileName: this.state.selectedFileName
+        };
+        await EmployeeService.PostUserDetail(employee).then(result => {
+            console.log(result);
+            if (result.message === "Success") {
+                toast.success("Details successfully added");
+            } else {
+                toast.error("Something went wrong, please try again later!")
+            }
+        });
     }
 
     render() {
-        const { openModal, crop, src } = this.state;
         return (
             <div>
                 <NavBar></NavBar>
@@ -65,21 +90,21 @@ export default class ProfileDetails extends Component {
                         <div class="col-md-9">
                             <div class="contact-form">
                                 <div class="form-group">
-                                    <label class="control-label col-sm-5" for="fname">Current position in your company:</label>
+                                    <label class="control-label col-sm-5" >Current position in your company:</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="fname" placeholder="Enter company position" name="position" onChange={this.handleChange} />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-4" for="lname">County where you work:</label>
+                                    <label class="control-label col-sm-4" >County where you work:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="lname" placeholder="County work" name="county" onChange={this.handleChange} />
+                                        <input type="text" class="form-control" placeholder="County work" name="county" onChange={this.handleChange} />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-4" for="lname">Current city work:</label>
+                                    <label class="control-label col-sm-4" >Current city work:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="lname" placeholder="City work" name="city" onChange={this.handleChange} />
+                                        <input type="text" class="form-control" placeholder="City work" name="city" onChange={this.handleChange} />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -102,7 +127,7 @@ export default class ProfileDetails extends Component {
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-default">Submit</button>
+                                        <button type="submit" class="btn btn-default" style = {{cursor: "pointer"}} onClick = {this.handleSubmit}>Submit</button>
                                     </div>
                                 </div>
                             </div>

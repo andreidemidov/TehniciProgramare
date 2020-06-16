@@ -9,6 +9,8 @@ namespace tp_project_freelance_platform_api.Repository.Interfaces
     public interface IUnitOfWork
     {
         IGenericRepository<Job> Jobs { get; }
+
+        IGenericRepository<UserDetail> Employees { get; }
         void Commit();
     }
 }

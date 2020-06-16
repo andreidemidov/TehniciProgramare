@@ -14,7 +14,7 @@ namespace tp_project_freelance_platform_api.Entities
         public int Id { get; set; }
         [Required]
         [Column(TypeName = "nvarchar(100)")]
-        public string CurrentPosition { get; set; }
+        public string Position { get; set; }
         [Required]
         [Column(TypeName = "nvarchar(100)")]
         public string County { get; set; }
@@ -29,10 +29,10 @@ namespace tp_project_freelance_platform_api.Entities
         public string PersonalDescription { get; set; }
         [Required]
         [Column(TypeName = "nvarchar(200)")]
-        public string FileName { get; set; }
+        public string SelectedFileName { get; set; }
         [Required]
         [Column(TypeName = "nvarchar(max)")]
-        public string FilePayload { get; set; }
+        public string SelectedFile { get; set; }
 
         public int UserModelId { get; set; }
         public UserModel UserModel { get; set; }

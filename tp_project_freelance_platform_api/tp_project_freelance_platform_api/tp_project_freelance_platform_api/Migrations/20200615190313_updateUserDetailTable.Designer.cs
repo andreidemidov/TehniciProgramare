@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TP_PROJECT_FreeLancePlatform_Api.Helpers;
 
 namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
 {
     [DbContext(typeof(FreeLancePlatformContext))]
-    partial class UserModelContextModelSnapshot : ModelSnapshot
+    [Migration("20200615190313_updateUserDetailTable")]
+    partial class updateUserDetailTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,24 +108,6 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
                     b.ToTable("Job");
                 });
 
-            modelBuilder.Entity("tp_project_freelance_platform_api.Entities.ParticipantModel", b =>
-                {
-                    b.Property<int>("JobID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserModelID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("JobID", "UserModelID");
-
-                    b.HasIndex("UserModelID");
-
-                    b.ToTable("ParticipantModel");
-                });
-
             modelBuilder.Entity("tp_project_freelance_platform_api.Entities.UserDetail", b =>
                 {
                     b.Property<int>("Id")
@@ -176,21 +160,6 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
                         .WithMany("Jobs")
                         .HasForeignKey("EmployeerId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("tp_project_freelance_platform_api.Entities.ParticipantModel", b =>
-                {
-                    b.HasOne("tp_project_freelance_platform_api.Entities.Job", "Job")
-                        .WithMany("Participants")
-                        .HasForeignKey("JobID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("TP_PROJECT_FreeLancePlatform_Api.Model.UserModel", "UserModel")
-                        .WithMany("Participants")
-                        .HasForeignKey("UserModelID")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

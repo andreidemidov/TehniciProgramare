@@ -12,6 +12,7 @@ namespace tp_project_freelance_platform_api.Repository
     {
         private FreeLancePlatformContext _context;
         private GenericRepository<Job> _jobs;
+        private GenericRepository<UserDetail> _userDetail;
 
         public UnitOfWork(FreeLancePlatformContext context)
         {
@@ -24,6 +25,15 @@ namespace tp_project_freelance_platform_api.Repository
             {
                 return _jobs ??
                 (_jobs = new GenericRepository<Job>(_context));
+            }
+        }
+
+        public IGenericRepository<UserDetail> Employees
+        {
+            get
+            {
+                return _userDetail ??
+                (_userDetail = new GenericRepository<UserDetail>(_context));
             }
         }
 

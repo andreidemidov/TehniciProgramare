@@ -18,6 +18,8 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Helpers
             CreateMap<UserModel, UserVm>();
             CreateMap<JobVm, Job>();
             CreateMap<Job, JobVm>();
+            CreateMap<UserDetailVm, UserDetail>();
+            CreateMap<UserDetail, UserDetailVm>();
         }
     }
 }
