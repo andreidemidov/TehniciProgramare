@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TP_PROJECT_FreeLancePlatform_Api.ModelVm;
 
 namespace tp_project_freelance_platform_api.ViewModels
 {
@@ -36,6 +37,8 @@ namespace tp_project_freelance_platform_api.ViewModels
         public string addedDate { get; set; }
         [JsonProperty("companyName")]
         public string CompanyName { get; set; }
+        [JsonProperty("users")]
+        public List<UserVm> Users { get; set; }
 
     }
 }

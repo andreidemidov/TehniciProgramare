@@ -73,6 +73,7 @@ namespace TestAuthorize
             services.AddScoped<IRegister, RegisterService>();
             services.AddScoped<IJobRepository, JobRepository>();
             services.AddScoped<IDetail, DetailRepository>();
+            services.AddScoped<IUserDetail, UserDetailRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
            
         }

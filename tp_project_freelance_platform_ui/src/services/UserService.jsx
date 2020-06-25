@@ -1,10 +1,11 @@
-import { LOGIN_URL, REGISTER_URL, GET_AUTH, GET_USER } from "../constants";
+import { LOGIN_URL, REGISTER_URL, GET_AUTH, GET_USER, USER } from "../constants";
 
 export const userService = {
     Login,
     Register,
     isLogin,
-    GetUser
+    GetUser,
+    GetUserById
 };
 
 async function Login(email, pass) {
@@ -51,5 +52,18 @@ async function GetUser() {
     });
 
 
+    return await response.json();
+}
+
+async function GetUserById(id){
+    const jwttoken = localStorage.getItem('JWT');
+    const bearer = 'Bearer ' + jwttoken;
+
+    let response = await fetch(USER + `/${id}`, {
+        method: "GET",
+        headers: { 
+            'Authorization': bearer 
+        },
+    });
     return await response.json();
 }

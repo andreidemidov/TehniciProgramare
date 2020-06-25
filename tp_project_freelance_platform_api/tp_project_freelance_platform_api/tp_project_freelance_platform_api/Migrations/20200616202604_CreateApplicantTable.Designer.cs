@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TP_PROJECT_FreeLancePlatform_Api.Helpers;
 
 namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
 {
     [DbContext(typeof(FreeLancePlatformContext))]
-    partial class UserModelContextModelSnapshot : ModelSnapshot
+    [Migration("20200616202604_CreateApplicantTable")]
+    partial class CreateApplicantTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +36,6 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("JobId")
-                        .HasColumnType("int");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
@@ -50,8 +49,6 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
                         .HasColumnType("nvarchar(9)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("JobId");
 
                     b.ToTable("UserModels");
                 });
@@ -173,13 +170,6 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Migrations
                         .IsUnique();
 
                     b.ToTable("UserDetail");
-                });
-
-            modelBuilder.Entity("TP_PROJECT_FreeLancePlatform_Api.Model.UserModel", b =>
-                {
-                    b.HasOne("tp_project_freelance_platform_api.Entities.Job", null)
-                        .WithMany("Users")
-                        .HasForeignKey("JobId");
                 });
 
             modelBuilder.Entity("tp_project_freelance_platform_api.Entities.Applicant", b =>

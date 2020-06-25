@@ -31,6 +31,6 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Model
         public ICollection<Job> Jobs { get; set; }
         public UserDetail UserDetail { get; set; }
 
-        public ICollection<ParticipantModel> Participants { get; set; }
+        public ICollection<Applicant> Participants { get; set; }
     }
 }

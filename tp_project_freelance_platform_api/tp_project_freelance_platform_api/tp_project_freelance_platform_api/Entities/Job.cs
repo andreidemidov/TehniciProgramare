@@ -41,6 +41,8 @@ namespace tp_project_freelance_platform_api.Entities
         public int EmployeerId { get; set; }
         public UserModel User { get; set; }
 
-        public ICollection<ParticipantModel> Participants { get; set; }
+        public ICollection<Applicant> Participants { get; set; }
+
+        public ICollection<UserModel> Users { get; set; }
     }
 }

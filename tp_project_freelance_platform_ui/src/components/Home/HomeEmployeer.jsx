@@ -8,6 +8,7 @@ import Avatar from 'react-avatar';
 import './Modal.css';
 import { JobService } from '../../services/JobService';
 import { toast } from 'react-toastify';
+import { Link } from "react-router-dom";
 
 toast.configure();
 
@@ -37,11 +38,13 @@ export default class HomeEmployeer extends Component {
     componentDidMount = async () => {
         await userService.GetUser().then((result) => {
             this.setState({ user: result });
+            
         });
 
         await JobService.GetAllByUser(this.state.user.id).then((result) => {
             if (result.message == "Success") {
                 this.setState({ jobs: result.jobs });
+                console.log(this.state.jobs);
             }
 
         });
@@ -185,9 +188,12 @@ export default class HomeEmployeer extends Component {
 
     render() {
         const { isShowing, showInput } = this.state;
+        const redirect = "http://localhost:3000/HomeEmployeer";
+
+
         return (
             <div>
-                <NavBar profile={this.state.user.role}></NavBar>
+                <NavBar profile={this.state.user} redirect={redirect}></NavBar>
 
                 <div className="container">
                     <button className="btn btn-primary" style={{ marginLeft: "80%", marginTop: "3%" }} onClick={() => this.openCloseModal()}>Add new Job</button>
@@ -237,7 +243,7 @@ export default class HomeEmployeer extends Component {
                             </div>
                         )
                     }
-                    <h5><p className="navbar-brand" style={{ fontSize: "16px", color: "#2A333D" }}>Your posted Jobs</p></h5>
+                    <h5><p className="navbar-brand" style={{ fontSize: "16px", color: "white" }}>Your posted Jobs</p></h5>
                     {
                         this.state.jobs && this.state.jobs.map((job, index) =>
                             <div class="card" style={{ marginBottom: "2%" }} key={index}>
@@ -247,12 +253,18 @@ export default class HomeEmployeer extends Component {
 
                                     <h2 className="card-text" style={{ display: "inline-block", color: "#2A333D", font: "sans-serif", fontSize: "14px" }}>Applicants: </h2>
                                     <table style={{ display: "inline-block", marginLeft: "2%" }}>
-                                        <td>
-                                            <Avatar name="Wim Mostmans" size="50" round="40px" />
-                                        </td>
-                                        <td>
-                                            <Avatar name="Wim Mostmans" size="50" round="40px" />
-                                        </td>
+                                        {
+                                            job.users && job.users.map((avatar, index) =>
+                                                <td>
+                                                    <Link to={{
+                                                        pathname: "/UserDetails",
+                                                        state: avatar
+                                                        }}>
+                                                        <Avatar name={avatar.firstName + " " + avatar.lastName} size="50" round="40px" style={{ cursor: "pointer" }}/>
+                                                    </Link>
+                                                </td>
+                                            )
+                                        }
                                     </table>
                                     <div style={{ marginLeft: "80%" }}>
                                         <button className="btn btn-danger" style={{ marginRight: "4%" }} onClick={() => this.openModalHandler(job.id)}>Edit job</button>

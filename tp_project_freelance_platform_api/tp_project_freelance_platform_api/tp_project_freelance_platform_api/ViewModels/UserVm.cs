@@ -10,6 +10,9 @@ namespace TP_PROJECT_FreeLancePlatform_Api.ModelVm
 {
     public class UserVm
     {
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
         [JsonProperty("emailAddress")]
         public string EmailAddress { get; set; }
 

@@ -7,6 +7,7 @@ using tp_project_freelance_platform_api.Entities;
 using tp_project_freelance_platform_api.Repository.Interfaces;
 using tp_project_freelance_platform_api.ViewModels;
 using TP_PROJECT_FreeLancePlatform_Api.Helpers;
+using TP_PROJECT_FreeLancePlatform_Api.Model;
 
 namespace tp_project_freelance_platform_api.Repository
 {
@@ -31,6 +32,13 @@ namespace tp_project_freelance_platform_api.Repository
             {
                 if (item.EmployeerId == id)
                 {
+                    var userApplicantIds = _context.Applicant.Where(el => el.JobID == item.Id).ToList();
+                    List<UserModel> userApplicants = new List<UserModel>();
+                    foreach (var i in userApplicantIds)
+                    {
+                        userApplicants = _context.UserModels.Where(el => el.Id == i.UserModelID).ToList();
+                    }
+                    item.Users = userApplicants;
                     jobVm = _mapper.Map<JobVm>(item);
                     jobVmlist.Add(jobVm);
                 }

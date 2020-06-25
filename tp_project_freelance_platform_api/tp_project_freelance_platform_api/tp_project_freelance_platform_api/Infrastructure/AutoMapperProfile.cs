@@ -20,6 +20,8 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Helpers
             CreateMap<Job, JobVm>();
             CreateMap<UserDetailVm, UserDetail>();
             CreateMap<UserDetail, UserDetailVm>();
+            CreateMap<Applicant, ApplicantsVm>();
+            CreateMap<ApplicantsVm, Applicant>();
         }
     }
 }

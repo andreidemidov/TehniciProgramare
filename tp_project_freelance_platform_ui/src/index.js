@@ -9,16 +9,10 @@ import { PrivateRoute } from './components/helpers/PrivateRoute';
 import HomeEmployee from './components/Home/HomeEmployee';
 import HomeEmployeer from './components/Home/HomeEmployeer';
 import ProfileDetails from './components/Account/ProfileDetails';
+import UserDetails from './components/Account/UserDetails';
 
 const routing = (
-    // <Router>
-    //     <div>
-    //         
-    //         <Route path="/HomeEmployee" component = {HomeEmployee}></Route>
-    //         <Route path ="/ProfileDetails" component = {ProfileDetails}></Route>
-    //         <Route path ="/ProfileEdit" component = {ProfileEdit}></Route>
-    //     </div>
-    // </Router>
+
     <Router>
         <div>
             <Route path = "/" component = {App}></Route>
@@ -27,6 +21,7 @@ const routing = (
             <PrivateRoute exact path = "/HomeEmployee"  component={HomeEmployee}></PrivateRoute>
             <PrivateRoute exact path = "/HomeEmployeer"  component={HomeEmployeer}></PrivateRoute>
             <PrivateRoute exact path = "/ProfileDetails"  component={ProfileDetails}></PrivateRoute>
+            <PrivateRoute exact path = "/UserDetails" component = {UserDetails}></PrivateRoute>
         </div>
       </Router>
 )

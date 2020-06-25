@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './Modal.css';
 import { JobService } from '../../services/JobService';
 import { userService } from '../../services/UserService';
+import { EmployeeService } from '../../services/EmployeeService';
 
 toast.configure();
 
@@ -54,8 +55,21 @@ class HomeEmployee extends Component {
         });
     }
 
-    notify = () => {
-        toast.success('Success notification');
+    applyToJob = async (jobId) => {
+        debugger;
+        //toast.success('Success notification');
+        let applicant = {
+            userModelID: this.state.user.id,
+            jobID: jobId
+        }
+
+        await EmployeeService.ApplyToJob(applicant).then((result) => {
+            if (result.message === "Success") {
+                toast.success("You successfully apply for this job");
+            } else {
+                toast.error("Something went wrong, please try again later!")
+            }
+        }) 
     }
 
     DateDifference = (date) => {
@@ -77,9 +91,10 @@ class HomeEmployee extends Component {
     }
 
     render() {
+        const redirect = "http://localhost:3000/HomeEmployee";
         return ( 
             <div>
-                <NavBar profile={this.state.user}></NavBar>
+                <NavBar profile={this.state.user} redirect = {redirect}></NavBar>
                 <table className="table" style={{ marginLeft: "5%" }}>
                     <tbody>
                         <tr style={{
@@ -140,7 +155,10 @@ class HomeEmployee extends Component {
                                                     )
                                                 }
 
-                                                <button className="btn btn-primary" onClick={this.notify}>Apply for job</button>
+                                                <button className="btn btn-primary" onClick={(e) => {
+                                                    e.target.setAttribute("disabled", true);
+                                                    this.applyToJob(job.id);
+                                                }}>Apply for job</button>
                                             </div>
                                         </div>
                                         <div class="card-footer text-muted" style={{ width: "18rem" }}>

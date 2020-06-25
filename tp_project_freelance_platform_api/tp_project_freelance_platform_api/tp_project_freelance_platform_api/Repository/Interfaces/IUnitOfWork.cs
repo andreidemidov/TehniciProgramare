@@ -11,6 +11,10 @@ namespace tp_project_freelance_platform_api.Repository.Interfaces
         IGenericRepository<Job> Jobs { get; }
 
         IGenericRepository<UserDetail> Employees { get; }
+
+        IGenericRepository<Applicant> Applicants { get; }
+
+        IGenericRepository<UserDetail> UserDetails { get; }
         void Commit();
     }
 }

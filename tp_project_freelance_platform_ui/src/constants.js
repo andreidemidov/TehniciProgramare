@@ -5,3 +5,5 @@ export const GET_AUTH = `${URL}/Login/GetAuth`;
 export const GET_USER = `${URL}/Login/GetUser`;
 export const JOB = `${URL}/Jobs`;
 export const EMPLOYEE = `${URL}/Employee`;
+export const APPLY = `${URL}/Applicants`;
+export const USER = `${URL}/Users`;
