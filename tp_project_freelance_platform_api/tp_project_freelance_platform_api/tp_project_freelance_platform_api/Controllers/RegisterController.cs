@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.Configuration;
+using Helpers;
+using IenApi.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +19,7 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class RegisterController : ControllerBase
+    public class RegisterController : BaseApiController
     {
         private readonly IRegister _registerService;
         private readonly IMapper _mapper;
@@ -34,6 +36,7 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Controllers
         {
             try
             {
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} started.");
                 var userConfirmation = _registerService.CreateUser(userVm);
 
                 if (!string.IsNullOrEmpty(userConfirmation.EmailAddress))
@@ -42,9 +45,14 @@ namespace TP_PROJECT_FreeLancePlatform_Api.Controllers
                 }
                 
             }
-            catch(AppException ex)
+            catch (AppException ex)
             {
-                return new { message = ex.Message };
+                _logger.LogError($"{MethodInfoHelper.GetCurrentMethodName()} failed.", ex);
+                throw;
+            }
+            finally
+            {
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} ended.");
             }
 
             return new { message = "Something went wrong please try again" };

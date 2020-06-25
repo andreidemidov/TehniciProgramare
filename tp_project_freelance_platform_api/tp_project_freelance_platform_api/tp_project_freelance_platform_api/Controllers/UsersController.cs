@@ -4,18 +4,21 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Helpers;
+using IenApi.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tp_project_freelance_platform_api.Repository.Interfaces;
 using tp_project_freelance_platform_api.ViewModels;
+using TP_PROJECT_FreeLancePlatform_Api.Helpers;
 using TP_PROJECT_FreeLancePlatform_Api.Interface;
 
 namespace tp_project_freelance_platform_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseApiController
     {
         private readonly IUserDetail _userDetail;
         private readonly IMapper _mapper;
@@ -36,6 +39,7 @@ namespace tp_project_freelance_platform_api.Controllers
             var userClaim = _authService.GetClaim(identity);
             try
             {
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} started.");
                 if (Convert.ToInt32(userClaim[4].Value) != 0)
                 {
         
@@ -46,9 +50,14 @@ namespace tp_project_freelance_platform_api.Controllers
                     return new { message = "Unauthorize" };
                 }
             }
-            catch (Exception ex)
+            catch (AppException ex)
             {
-                return new { message = "Unsuccess" };
+                _logger.LogError($"{MethodInfoHelper.GetCurrentMethodName()} failed.", ex);
+                throw;
+            }
+            finally
+            {
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} ended.");
             }
 
         }

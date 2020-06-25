@@ -4,6 +4,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Helpers;
+using IenApi.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tp_project_freelance_platform_api.Entities;
@@ -16,7 +18,7 @@ namespace tp_project_freelance_platform_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApplicantsController : ControllerBase
+    public class ApplicantsController : BaseApiController
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -37,7 +39,7 @@ namespace tp_project_freelance_platform_api.Controllers
 
             try
             {
-            
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} started.");
                 var user = _authService.AuthorizeUser(Convert.ToInt32(userClaim[4].Value));
                 if (user != null)
                 {
@@ -54,7 +56,12 @@ namespace tp_project_freelance_platform_api.Controllers
             }
             catch (AppException ex)
             {
-                return new { message = "Something went wrong please try again" };
+                _logger.LogError($"{MethodInfoHelper.GetCurrentMethodName()} failed.", ex);
+                throw;
+            }
+            finally
+            {
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} ended.");
             }
 
 

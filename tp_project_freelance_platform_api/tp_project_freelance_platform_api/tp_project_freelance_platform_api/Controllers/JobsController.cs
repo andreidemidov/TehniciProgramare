@@ -4,6 +4,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Helpers;
+using IenApi.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +20,7 @@ namespace tp_project_freelance_platform_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class JobsController : ControllerBase
+    public class JobsController : BaseApiController
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -42,6 +44,7 @@ namespace tp_project_freelance_platform_api.Controllers
 
             try
             {
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} started.");
                 var user = _authService.AuthorizeUser(Convert.ToInt32(userClaim[4].Value));
                 if(user != null)
                 {
@@ -53,9 +56,14 @@ namespace tp_project_freelance_platform_api.Controllers
                     return new { message = "Unauthorize" };
                 }
             }
-            catch(AppException ex)
+            catch (AppException ex)
             {
-                return new { message = "Something went wrong please try again later" };
+                _logger.LogError($"{MethodInfoHelper.GetCurrentMethodName()} failed.", ex);
+                throw;
+            }
+            finally
+            {
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} ended.");
             }
         }
 
@@ -69,6 +77,7 @@ namespace tp_project_freelance_platform_api.Controllers
             var userClaim = _authService.GetClaim(identity);
             try
             {
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} started.");
                 if (Convert.ToInt32(userClaim[4].Value) == id)
                 {
                     return new { message = "Success", jobs = _jobRepository.GetAll(id) };
@@ -78,11 +87,16 @@ namespace tp_project_freelance_platform_api.Controllers
                     return new { message = "Unauthorize" };
                 } 
             }
-            catch(Exception ex)
+            catch (AppException ex)
             {
-                return new { message = "Unsuccess" };
+                _logger.LogError($"{MethodInfoHelper.GetCurrentMethodName()} failed.", ex);
+                throw;
             }
-            
+            finally
+            {
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} ended.");
+            }
+
         }
 
         // POST: api/Jobs
@@ -92,6 +106,7 @@ namespace tp_project_freelance_platform_api.Controllers
         {
             try
             {
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} started.");
                 var job = _mapper.Map<Job>(jobVm);
                 if (job != null)
                 {
@@ -116,6 +131,7 @@ namespace tp_project_freelance_platform_api.Controllers
             var userClaim = _authService.GetClaim(identity);
             try
             {
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} started.");
                 var user = _authService.AuthorizeUser(Convert.ToInt32(userClaim[4].Value));
                 if(user != null)
                 {
@@ -131,7 +147,12 @@ namespace tp_project_freelance_platform_api.Controllers
             }
             catch (AppException ex)
             {
-                return new { message = "Unsuccess" };
+                _logger.LogError($"{MethodInfoHelper.GetCurrentMethodName()} failed.", ex);
+                throw;
+            }
+            finally
+            {
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} ended.");
             }
         }
 
@@ -144,6 +165,7 @@ namespace tp_project_freelance_platform_api.Controllers
             var userClaim = _authService.GetClaim(identity);
             try
             {
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} started.");
                 var user = _authService.AuthorizeUser(Convert.ToInt32(userClaim[4].Value));
                 if (user != null)
                 {
@@ -156,9 +178,14 @@ namespace tp_project_freelance_platform_api.Controllers
                     return new { message = "Unauthorize" };
                 }
             }
-            catch (Exception ex)
+            catch (AppException ex)
             {
-                return new { message = "Unsuccess" };
+                _logger.LogError($"{MethodInfoHelper.GetCurrentMethodName()} failed.", ex);
+                throw;
+            }
+            finally
+            {
+                _logger.LogInfo($"{MethodInfoHelper.GetCurrentMethodName()} ended.");
             }
         }
     }
