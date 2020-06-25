@@ -18,30 +18,6 @@ namespace tp_project_freelance_platform_api.Repository
             _hostingEnvironment = hostingEnvironment;
         }
 
-        //public string CreateFile(byte[] data)
-        //{
-        //    string fullPath = _hostingEnvironment.WebRootPath;
-        //    string fileURL = "\\" + "files" + "\\" + DateTime.Now.Year.ToString() + "\\" +
-        //               DateTime.Now.Month.ToString() + "\\";
-
-
-        //    string fileName = Guid.NewGuid().ToString();
-        //    try
-        //    {
-        //        if (IsPathCreated(fullPath + fileURL))
-        //        {
-        //            string returnURL = fileURL + fileName;
-        //            fullPath += returnURL;
-
-        //            File.WriteAllBytes(fullPath, data);
-        //            return returnURL;
-        //        }
-        //        return "500";
-        //    }
-        //    catch { return "400"; }
-
-        //}
-
         public string CreateFile(string fileName, byte[] bytes)
         {
             var path = "D:/files";

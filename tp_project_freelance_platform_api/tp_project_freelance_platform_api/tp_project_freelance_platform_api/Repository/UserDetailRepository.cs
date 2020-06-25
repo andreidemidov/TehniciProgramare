@@ -20,6 +20,10 @@ namespace tp_project_freelance_platform_api.Repository
             _context = context;
             _mapper = mapper;
         }
+        public UserDetailRepository()
+        {
+
+        }
         public UserDetailVm GetById(int id)
         {
             var user = _context.UserDetail.SingleOrDefault(el => el.UserModelId == id);

@@ -22,6 +22,11 @@ namespace tp_project_freelance_platform_api.Repository
             _mapper = mapper;
         }
 
+        public JobRepository()
+        {
+
+        }
+
         public List<JobVm> GetAll(int id)
         {
             var jobList = _context.Job.ToList();
@@ -46,15 +51,6 @@ namespace tp_project_freelance_platform_api.Repository
             }
 
             return jobVmlist;
-        }
-
-        public void UpdateJob(int id, string value)
-        {
-            var user = _context.UserModels.SingleOrDefault(x => x.Id == id);
-            if(user != null)
-            {
-                
-            }
         }
 
         public void Save()
